@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新增试题</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <style>
+        .choice-type{
+            margin: 100px;
+        }
+    </style>
+    <script src="js/jquery-2.1.4/jquery-2.1.4.js"></script>
+    <script src="layui/layui.all.js"></script>
+    <script src="layui/layui.js"></script>
+</head>
+<body>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+    <legend></legend>
+</fieldset>
+<div class="choice-type">
+    <div class="layui-tab">
+        <ul class="layui-tab-title">
+            <li class="layui-this">选择题</li>
+            <li class="">填空题</li>
+            <li class="">判断题</li>
+            <li class="">名词解释</li>
+            <li class="">简答题</li>
+            <li class="">论述题</li>
+        </ul>
+        <div class="layui-tab-content">
+            <div id="chioce" class="layui-tab-item layui-show">
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">题目</label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="请输入题目" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">选项一</label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="请输入..." class="layui-textarea"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">选项二</label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="请输入..." class="layui-textarea"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">选项三</label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="请输入..." class="layui-textarea"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">选项四</label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="请输入..." class="layui-textarea"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">难度</label>
+                    <div class="layui-input-block">
+                        <input type="email" name="" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">知识点</label>
+                    <div class="layui-input-block">
+                        <input type="email" name="" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">答案</label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="请输入..." class="layui-textarea"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn choicebtn"  lay-filter="*">确认</button>
+
+                    </div>
+                </div>
+            </div>
+            <div id="completion" class="layui-tab-item">
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">题目</label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="请输入题目" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">难度</label>
+                    <div class="layui-input-block">
+                        <input type="email" name="" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">答案</label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="请输入..." class="layui-textarea"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">知识点</label>
+                    <div class="layui-input-block">
+                        <input type="email" name="" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn completionbtn" lay-submit lay-filter="*">确认</button>
+
+                    </div>
+                </div>
+            </div>
+            <div id="judgment" class="layui-tab-item">
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">题目</label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="请输入题目" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">难度</label>
+                    <div class="layui-input-block">
+                        <input type="email" name="" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">答案</label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="请输入..." class="layui-textarea"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">知识点</label>
+                    <div class="layui-input-block">
+                        <input type="email" name="" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn judgmentbtn" lay-submit lay-filter="*">确认</button>
+
+                    </div>
+                </div>
+            </div>
+            <div id="definition" class="layui-tab-item">
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">题目</label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="请输入题目" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">难度</label>
+                    <div class="layui-input-block">
+                        <input type="email" name="" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">答案</label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="请输入..." class="layui-textarea"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">知识点</label>
+                    <div class="layui-input-block">
+                        <input type="email" name="" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn definitionbtn" lay-submit lay-filter="*">确认</button>
+
+                    </div>
+                </div>
+            </div>
+            <div id="shortanswer" class="layui-tab-item">
+                <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">题目</label>
+                <div class="layui-input-block">
+                    <textarea placeholder="请输入题目" class="layui-textarea"></textarea>
+                </div>
+            </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">难度</label>
+                    <div class="layui-input-block">
+                        <input type="email" name="" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">答案</label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="请输入..." class="layui-textarea"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">知识点</label>
+                    <div class="layui-input-block">
+                        <input type="email" name="" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn shortanswerbtn" lay-submit lay-filter="*">确认</button>
+
+                    </div>
+                </div>
+            </div>
+            <div id="discussion" class="layui-tab-item">
+                <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">题目</label>
+                <div class="layui-input-block">
+                    <textarea placeholder="请输入题目" class="layui-textarea"></textarea>
+                </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">难度</label>
+                    <div class="layui-input-block">
+                        <input type="email" name="" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">答案</label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="请输入..." class="layui-textarea"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">知识点</label>
+                    <div class="layui-input-block">
+                        <input type="email" name="" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn discussionbtn" lay-submit lay-filter="*">确认</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    //注意：选项卡 依赖 element 模块，否则无法进行功能性操作
+    layui.use('element', function(){
+        var element = layui.element;
+
+        //…
+    });
+    $(".choicebtn").click(function() {
+        var ps=  $("#chioce textarea").eq(0).val();
+        var ps1=  $("#chioce textarea").eq(1).val();
+        var ps2=  $("#chioce textarea").eq(2).val();
+        var ps3=  $("#chioce textarea").eq(3).val();
+        var ps4=  $("#chioce textarea").eq(4).val();
+        var ps5=  $("#chioce textarea").eq(5).val();
+        var id=$("#chioce input").eq(0).val();
+        var id1=$("#chioce input").eq(1).val();
+
+            $.ajax({
+                type: "post",
+                url:  "/addChoice",
+                data:{choice_content:ps,choice_first:ps1,choice_second:ps2,choice_third:ps3,choice_fourth:ps4,
+                    choice_answer:ps5,choice_difficulty:id,point:id1},
+                success: function(data) {
+                    if(data==1){
+                        layer.open({
+                            title: '提示'
+                            ,content: '添加成功'
+                        });
+                    }
+                    else{
+                        layer.open({
+                            title: '提示'
+                            ,content: '添加失败'
+                        });
+                    }
+                }
+            });
+
+
+        //阻止跳转
+
+    });
+    $(".completionbtn").click(function() {
+        var ps=  $("#completion textarea").eq(0).val();
+        var ps1=  $("#completion textarea").eq(1).val();
+        var id=$("#completion input").eq(0).val();
+        var id1=$("#completion input").eq(1).val();
+
+        $.ajax({
+            type: "post",
+            url:  "/addCompletion",
+            data:{completion_content:ps, completion_answer:ps1,completion_difficulty:id,point:id1},
+            success: function(data) {
+                if(data==1){
+                    layer.open({
+                        title: '提示'
+                        ,content: '添加成功'
+                    });
+                }
+                else{
+                    layer.open({
+                        title: '提示'
+                        ,content: '添加失败'
+                    });
+                }
+            }
+        });
+
+
+        //阻止跳转
+
+    });
+    $(".judgmentbtn").click(function() {
+        var ps=  $("#judgment textarea").eq(0).val();
+        var ps1=  $("#judgment textarea").eq(1).val();
+        var id=$("#judgment input").eq(0).val();
+        var id1=$("#judgment input").eq(1).val();
+
+        $.ajax({
+            type: "post",
+            url:  "/addJudgment",
+            data:{judgment_content:ps, judgment_answer:ps1,judgment_difficulty:id,point:id1},
+            success: function(data) {
+                if(data==1){
+                    layer.open({
+                        title: '提示'
+                        ,content: '添加成功'
+                    });
+                }
+                else{
+                    layer.open({
+                        title: '提示'
+                        ,content: '添加失败'
+                    });
+                }
+            }
+        });
+
+
+        //阻止跳转
+
+    });
+    $(".definitionbtn").click(function() {
+        var ps=  $("#definition textarea").eq(0).val();
+        var ps1=  $("#definition textarea").eq(1).val();
+        var id=$("#definition input").eq(0).val();
+        var id1=$("#definition input").eq(1).val();
+
+        $.ajax({
+            type: "post",
+            url:  "/addDefinition",
+            data:{definition_content:ps, definition_answer:ps1,definition_difficulty:id,point:id1},
+            success: function(data) {
+                if(data==1){
+                    layer.open({
+                        title: '提示'
+                        ,content: '添加成功'
+                    });
+                }
+                else{
+                    layer.open({
+                        title: '提示'
+                        ,content: '添加失败'
+                    });
+                }
+            }
+        });
+
+
+        //阻止跳转
+
+    });
+    $(".shortanswerbtn").click(function() {
+        var ps=  $("#shortanswer textarea").eq(0).val();
+        var ps1=  $("#shortanswer textarea").eq(1).val();
+        var id=$("#shortanswer input").eq(0).val();
+        var id1=$("#shortanswer input").eq(1).val();
+
+        $.ajax({
+            type: "post",
+            url:  "/addShortAnswer",
+            data:{shortAnswer_content:ps, shortAnswer_answer:ps1,shortAnswer_difficulty:id,point:id1},
+            success: function(data) {
+                if(data==1){
+                    layer.open({
+                        title: '提示'
+                        ,content: '添加成功'
+                    });
+                }
+                else{
+                    layer.open({
+                        title: '提示'
+                        ,content: '添加失败'
+                    });
+                }
+            }
+        });
+
+
+        //阻止跳转
+
+    });
+    $(".discussionbtn").click(function() {
+        var ps=  $("#discussion textarea").eq(0).val();
+        var ps1=  $("#discussion textarea").eq(1).val();
+        var id=$("#discussion input").eq(0).val();
+        var id1=$("#discussion input").eq(1).val();
+
+        $.ajax({
+            type: "post",
+            url:  "/addDiscussion",
+            data:{discussion_content:ps, discussion_answer:ps1,discussion_difficulty:id,point:id1},
+            success: function(data) {
+                if(data==1){
+                    layer.open({
+                        title: '提示'
+                        ,content: '添加成功'
+                    });
+                }
+                else{
+                    layer.open({
+                        title: '提示'
+                        ,content: '添加失败'
+                    });
+                }
+            }
+        });
+
+
+        //阻止跳转
+
+    });
+</script>
+</body>
+</html>

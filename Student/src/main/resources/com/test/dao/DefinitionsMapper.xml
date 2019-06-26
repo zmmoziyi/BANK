@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.test.dao.DefinitionsMapper" >
+  <resultMap id="BaseResultMap" type="com.test.entity.Definitions" >
+    <id column="definition_id" property="definition_id" jdbcType="INTEGER" />
+    <result column="definition_content" property="definition_content" jdbcType="VARCHAR" />
+    <result column="definition_answer" property="definition_answer" jdbcType="VARCHAR" />
+    <result column="definition_difficulty" property="definition_difficulty" jdbcType="DOUBLE" />
+    <result column="point" property="point" jdbcType="VARCHAR" />
+    <result column="teacher_id" property="teacher_id" jdbcType="VARCHAR" />
+    <result column="choice_time" property="choice_time" jdbcType="DATE" />
+    <association property="teachers" column="teacher_id"  resultMap="Teacher"/>
+  </resultMap>
+  <resultMap id="Teacher" type="com.test.entity.Teachers" >
+    <id column="teacher_name" property="teacher_name" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    definition_id, definition_content, definition_answer, definition_difficulty, point, 
+    teacher_id, choice_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from definitions
+    where definition_id = #{definition_id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    de.definition_id, de.definition_content,
+      de.definition_answer,de.definition_difficulty,de.point,
+      t.teacher_name, choice_time
+    from definitions de left join teachers t on de.teacher_id=t.teacher_id
+    <where>
+      <if test="point!=null">
+        and point=#{point}
+      </if>
+    </where>
+     LIMIT #{before},#{after}
+  </select>
+  <select id="count" resultType="int">
+        select count(*) from definitions de left join teachers t on de.teacher_id=t.teacher_id
+    <where>
+      <if test="point!=null">
+        and point=#{point}
+      </if>
+    </where>
+  </select>
+  <select id="selectByPoint" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from definitions
+    where point in
+    <foreach item="item" index="index" collection="_parameter.split('，')"  open="(" separator="," close=")">
+      '${item}'
+    </foreach>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from definitions
+    where definition_id = #{definition_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.test.entity.Definitions" >
+    insert into definitions (definition_id, definition_content, 
+      definition_answer, definition_difficulty, 
+      point, teacher_id, choice_time
+      )
+    values (#{definition_id,jdbcType=INTEGER}, #{definition_content,jdbcType=VARCHAR}, 
+      #{definition_answer,jdbcType=VARCHAR}, #{definition_difficulty,jdbcType=DOUBLE}, 
+      #{point,jdbcType=VARCHAR}, #{teacher_id,jdbcType=VARCHAR}, #{choice_time,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.test.entity.Definitions" >
+    insert into definitions
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="definition_id != null" >
+        definition_id,
+      </if>
+      <if test="definition_content != null" >
+        definition_content,
+      </if>
+      <if test="definition_answer != null" >
+        definition_answer,
+      </if>
+      <if test="definition_difficulty != null" >
+        definition_difficulty,
+      </if>
+      <if test="point != null" >
+        point,
+      </if>
+      <if test="teacher_id != null" >
+        teacher_id,
+      </if>
+      <if test="choice_time != null" >
+        choice_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="definition_id != null" >
+        #{definition_id,jdbcType=INTEGER},
+      </if>
+      <if test="definition_content != null" >
+        #{definition_content,jdbcType=VARCHAR},
+      </if>
+      <if test="definition_answer != null" >
+        #{definition_answer,jdbcType=VARCHAR},
+      </if>
+      <if test="definition_difficulty != null" >
+        #{definition_difficulty,jdbcType=DOUBLE},
+      </if>
+      <if test="point != null" >
+        #{point,jdbcType=VARCHAR},
+      </if>
+      <if test="teacher_id != null" >
+        #{teacher_id,jdbcType=VARCHAR},
+      </if>
+      <if test="choice_time != null" >
+        #{choice_time,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.test.entity.Definitions" >
+    update definitions
+    <set >
+      <if test="definition_content != null" >
+        definition_content = #{definition_content,jdbcType=VARCHAR},
+      </if>
+      <if test="definition_answer != null" >
+        definition_answer = #{definition_answer,jdbcType=VARCHAR},
+      </if>
+      <if test="definition_difficulty != null" >
+        definition_difficulty = #{definition_difficulty,jdbcType=DOUBLE},
+      </if>
+      <if test="point != null" >
+        point = #{point,jdbcType=VARCHAR},
+      </if>
+      <if test="teacher_id != null" >
+        teacher_id = #{teacher_id,jdbcType=VARCHAR},
+      </if>
+      <if test="choice_time != null" >
+        choice_time = #{choice_time,jdbcType=DATE},
+      </if>
+    </set>
+    where definition_id = #{definition_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.test.entity.Definitions" >
+    update definitions
+    set definition_content = #{definition_content,jdbcType=VARCHAR},
+      definition_answer = #{definition_answer,jdbcType=VARCHAR},
+      definition_difficulty = #{definition_difficulty,jdbcType=DOUBLE},
+      point = #{point,jdbcType=VARCHAR},
+      teacher_id = #{teacher_id,jdbcType=VARCHAR},
+      choice_time = #{choice_time,jdbcType=DATE}
+    where definition_id = #{definition_id,jdbcType=INTEGER}
+  </update>
+</mapper>

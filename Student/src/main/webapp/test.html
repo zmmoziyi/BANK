@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jquery-2.1.4/jquery-2.1.4.js"></script>
+    <script src="layui/layui.all.js"></script>
+    <script src="layui/layui.js"></script>
+    <link rel="stylesheet" href="layui/css/layui.css">
+</head>
+<body>
+<table class="layui-hide" id="demo" lay-filter="test"></table>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script>
+   /* $(function () {
+        $.ajax({
+            url:"/selectAllChoice",
+            type:"post",
+            async:false,
+            dataType:"json",
+            success:function (result) {
+                alert(result);
+            }
+        })
+    });*/
+    $(function () {
+        $.ajax({
+            url:"/selectAllChoice",
+            type:"post",
+            dataType:"json",
+            success:function (result) {
+                alert(result);
+            }
+        })
+    });
+</script>
+</body>
+
+</html>

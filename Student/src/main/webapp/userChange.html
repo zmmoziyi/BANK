@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+
+</head>
+<body>
+<div class="layui-tab">
+    <ul class="layui-tab-title">
+        <li class="layui-this">初始化</li>
+        <li>教师</li>
+        <li>学生</li>
+        <li>数据库备份与还原</li>
+    </ul>
+    <div class="layui-tab-content">
+
+        <div class="layui-tab-item layui-show">
+            <div class="teacher">
+                <legend style="text-align: center">初始化教师</legend>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">工号</label>
+                    <div class="layui-input-block">
+                        <input type="text"   name="" placeholder="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">姓名</label>
+                    <div class="layui-input-block">
+                        <input type="text"  name="" placeholder="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">邮箱</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="" placeholder="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">密码</label>
+                    <div class="layui-input-block">
+                        <input type="email" name="" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">角色</label>
+                    <div class="layui-input-block">
+                        <input type="email" name="" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-input-block">
+                    <button class="layui-btn addtea"  lay-filter="*">立即提交</button>
+
+                </div>
+            </div>
+            <div class="student">
+                <legend style="text-align: center">初始化学生</legend>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">学号</label>
+                    <div class="layui-input-block">
+                        <input type="text"   name="" placeholder="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">姓名</label>
+                    <div class="layui-input-block">
+                        <input type="text"  name="" placeholder="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">密码</label>
+                    <div class="layui-input-block">
+                        <input type="email" name="" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-input-block">
+                    <button class="layui-btn addstu"  lay-filter="*">立即提交</button>  <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </div>
+        <div class="layui-tab-item">
+            <div class="layui-btn-container ">
+
+                <input style="width: 300px;display:inline" type="text" name="file" required  lay-verify="required" placeholder="请输入..." autocomplete="off" class="layui-input">
+                <button style="margin-left: 20px;height: 35px"  class="layui-btn layui-btn-sm" lay-event="search">查询</button>
+
+            </div>
+            <table class="layui-hide" id="teacher"lay-filter="test1"></table>
+            <script type="text/html" id="barDemo1">
+                <a class="layui-btn layui-btn-xs" lay-event="edit">更新</a>
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+            </script>
+        </div>
+        <div class="layui-tab-item">
+            <div class="layui-btn-container ">
+
+                <input style="width: 300px;display:inline" type="text" name="file" required  lay-verify="required" placeholder="请输入..." autocomplete="off" class="layui-input">
+                <button style="margin-left: 20px;height: 35px"  class="layui-btn layui-btn-sm" lay-event="search">查询</button>
+
+            </div>
+            <table class="layui-hide" id="student"lay-filter="test2"></table>
+            <script type="text/html" id="barDemo2">
+                <a class="layui-btn layui-btn-xs" lay-event="edit">更新</a>
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+            </script>
+        </div>
+        <div class="layui-tab-item">
+                <div class="back">
+                    <legend style="text-align: center">初始化备份参数</legend>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">主机地址</label>
+                        <div class="layui-input-block">
+                            <input type="text"   name="" placeholder="" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">用户名</label>
+                        <div class="layui-input-block">
+                            <input type="text"  name="" placeholder="" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">密码</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="" placeholder="" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">备份路径</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="" placeholder="请输入" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">备份文件名</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="" placeholder="请输入" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">备份数据库名</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="" placeholder="请输入" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-input-block">
+                        <button  id="back" class="layui-btn " >备份</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+
+                <div class="restore">
+                    <legend style="text-align: center">初始化还原参数</legend>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">备份脚本路径</label>
+                        <div class="layui-input-block">
+                            <input type="text"   name="" placeholder="" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">还原主机的地址</label>
+                        <div class="layui-input-block">
+                            <input type="text"  name="" placeholder="" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">数据库名</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="" placeholder="" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">用户名</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="" placeholder="请输入" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">密码</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="" placeholder="请输入" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-input-block">
+                        <button  id="restore" class="layui-btn " >还原</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+
+
+
+
+        </div>
+    </div>
+</div>
+<script src="js/jquery-2.1.4/jquery-2.1.4.js"></script>
+<script src="layui/layui.js"></script>
+<script src="layui/layui.all.js"></script>
+<script>
+    //注意：选项卡 依赖 element 模块，否则无法进行功能性操作
+    layui.use('element', function(){
+        var element = layui.element;
+
+        //…
+    });
+    $(".addtea").click(function() {
+        var teacher_id=  $(".teacher input").eq(0).val();
+
+        var teacher_name=  $(".teacher input").eq(1).val();
+        var teacher_password=  $(".teacher input").eq(2).val();
+        var teacher_email=  $(".teacher input").eq(3).val();
+        var role=  $(".teacher input").eq(4).val();
+            $.ajax({
+                type: "post",
+                url:  "/addTeacher",
+                data:{teacher_id:teacher_id,teacher_name:teacher_name,teacher_password:teacher_password,teacher_email:teacher_email,role:role},
+                success: function(data) {
+                    if(data==1){
+                        layer.open({
+                            title: '提示'
+                            ,content: '添加成功'
+                        });
+                    }
+                }
+            });
+
+
+        //阻止跳转
+
+    });
+    $(".addstu").click(function() {
+        var student_id=  $(".student input").eq(0).val();
+
+        var student_name=  $(".student input").eq(1).val();
+        var student_password=  $(".student input").eq(2).val();
+
+        $.ajax({
+            type: "post",
+            url:  "/addStudent",
+            data:{student_id:student_id,student_name:student_name,student_password:student_password},
+            success: function(data) {
+                if(data==1){
+                    layer.open({
+                        title: '提示'
+                        ,content: '添加成功'
+                    });
+                }
+            }
+        });
+
+
+
+    })
+    $("#back").click(function() {
+        var hostIP =$(".back input").eq(0).val();
+        var userName=$(".back input").eq(1).val();
+        var password=$(".back input").eq(2).val();
+        var savePath=$(".back input").eq(3).val();
+        var fileName=$(".back input").eq(4).val();
+        var databaseName=$(".back input").eq(5).val();
+
+        $.ajax({
+            type: "post",
+            url:  "/back",
+            data:{hostIP:hostIP,userName:userName,password:password,savePath:savePath,fileName:fileName,databaseName:databaseName},
+            success: function(data) {
+                if(data=="true"){
+                    layer.open({
+                        title: '提示'
+                        ,content: '备份成功'
+                    });
+                }else{
+                    layer.open({
+                        title: '提示'
+                        ,content: '备份失败'
+                    });
+                }
+
+            }
+        });
+
+    });
+    $("#restore").click(function() {
+
+        var ip =$(".restore input").eq(0).val();
+        var userName=$(".restore input").eq(1).val();
+        var password=$(".restore input").eq(2).val();
+        var filepath=$(".restore input").eq(3).val();
+        var database=$(".restore input").eq(4).val();
+
+        $.ajax({
+            type: "post",
+            url:  "/restore",
+            data:{ip:ip,userName:userName,password:password,filepath:filepath,database:database},
+            success: function(data) {
+                if(data=="true"){
+                    layer.open({
+                        title: '提示'
+                        ,content: '还原成功'
+                    });
+                }else{
+                    layer.open({
+                        title: '提示'
+                        ,content: '还原失败'
+                    });
+                }
+            }
+        });
+
+    })
+
+    $(function () {layui.use('table', function(){//声明使用table
+        var table = layui.table;
+        table.render({
+            elem: '#teacher'
+            //  ,data:result
+            ,url:'/selectAllTeacher'
+            ,cellMinWidth: 50 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+            ,cols: [//表头
+                [
+
+                    {field:'teacher_id', width:300, title: '工号', sort: true}
+                    ,{field:'teacher_name', edit: 'text',width:300, title: '姓名'}
+                    ,{field:'teacher_password',edit: 'text', width:100, title: '密码'}
+                    ,{field:'teacher_email',edit: 'text', width:500, title: '邮箱'}
+                    ,{field:'role', title: '角色',edit: 'text', width:100} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                    ,{fixed: 'right', width:300, title: '操作',align:'center', toolbar: '#barDemo1'}
+                ]
+            ]
+            ,page:true
+            ,limit:10
+        });
+        //监听单元格编辑
+        table.on('edit(test2)', function(obj){
+            var value = obj.value //得到修改后的值
+                ,data = obj.data //得到所在行所有键值
+                ,field = obj.field; //得到字段
+
+        });
+        //监听行工具事件
+        table.on('tool(test1)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            var tr = obj.tr; //获得当前行 tr 的DOM对象
+            if(layEvent === 'del'){ //删除
+                layer.confirm('真的删除行么', function(index){
+                    obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                    layer.close(index);
+
+                    //向服务端发送删除指令
+                    $.ajax({
+                        url:"/deleteTeacher",
+                        type:"post",
+                        data:{teacher_id:data.teacher_id},
+                        dataType:"json",
+                        success:function (result) {
+                            if(result==1){
+                                layer.open({
+                                    title: '提示'
+                                    ,content: '删除成功'
+                                });
+                            }
+                        }
+                    })
+                });
+            } else if(layEvent === 'edit'){ //编辑
+                //do something
+
+                $.ajax({
+                    url:"/updateTeacher",
+                    type:"post",
+                    data:{teacher_id:data.teacher_id,teacher_name:data.teacher_name,teacher_password:data.teacher_password,teacher_email:data.teacher_email},
+                    dataType:"json",
+                    success:function (result) {
+                        if(result==1){
+                            layer.open({
+                                title: '提示'
+                                ,content: '更新成功'
+                            });
+                        }
+
+                    }
+                })
+            }
+        });
+
+    });
+    });
+    $(function () {layui.use('table', function(){//声明使用table
+        var table = layui.table;
+        table.render({
+            elem: '#student'
+            //  ,data:result
+            ,url:'/selectAllStudent'
+            ,cellMinWidth: 50 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+            ,cols: [//表头
+                [
+
+                    {field:'student_id', width:300, title: '工号', sort: true}
+                    ,{field:'student_name',edit: 'text', width:300, title: '姓名'}
+                    ,{field:'student_password', edit: 'text',width:300, title: '密码'}
+                    ,{fixed: 'right', width:300, title: '操作',align:'center', toolbar: '#barDemo2'}
+                ]
+            ]
+            ,page:true
+            ,limit:10
+        });
+        //监听单元格编辑
+        table.on('edit(test2)', function(obj){
+            var value = obj.value //得到修改后的值
+                ,data = obj.data //得到所在行所有键值
+                ,field = obj.field; //得到字段
+
+        });
+        //监听行工具事件
+        table.on('tool(test2)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            var tr = obj.tr; //获得当前行 tr 的DOM对象
+            if(layEvent === 'del'){ //删除
+                layer.confirm('真的删除行么', function(index){
+                    obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                    layer.close(index);
+                    choice_id=data.choice_id;
+                    //向服务端发送删除指令
+                    $.ajax({
+                        url:"/deleteStudent",
+                        type:"post",
+                        data:{student_id:data.student_id},
+                        dataType:"json",
+                        success:function (result) {
+                            if(result==1){
+                                layer.open({
+                                    title: '提示'
+                                    ,content: '删除成功'
+                                });
+                            }
+                        }
+                    })
+                });
+            } else if(layEvent === 'edit'){ //编辑
+                //do something
+
+                //同步更新缓存对应的值
+
+                $.ajax({
+                    url:"/updateStudent",
+                    type:"post",
+                    data:{student_id:data.student_id,student_name:data.student_name,student_password:data.student_password},
+                    dataType:"json",
+                    success:function (result) {
+                        if(result==1){
+                            layer.open({
+                                title: '提示'
+                                ,content: '更新成功'
+                            });
+                        }
+
+                    }
+                })
+            }
+        });
+
+    });
+    });
+</script>
+
+</body>
+</html>

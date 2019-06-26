@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.test.dao.JudgmentsMapper" >
+  <resultMap id="BaseResultMap" type="com.test.entity.Judgments" >
+    <id column="judgment_id" property="judgment_id" jdbcType="INTEGER" />
+    <result column="judgment_content" property="judgment_content" jdbcType="VARCHAR" />
+    <result column="judgment_answer" property="judgment_answer" jdbcType="VARCHAR" />
+    <result column="judgment_difficulty" property="judgment_difficulty" jdbcType="DOUBLE" />
+    <result column="point" property="point" jdbcType="VARCHAR" />
+    <result column="teacher_id" property="teacher_id" jdbcType="VARCHAR" />
+    <result column="choice_time" property="choice_time" jdbcType="DATE" />
+    <association property="teachers" column="teacher_id"  resultMap="Teacher"/>
+  </resultMap>
+  <resultMap id="Teacher" type="com.test.entity.Teachers" >
+    <id column="teacher_name" property="teacher_name" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    judgment_id, judgment_content, judgment_answer, judgment_difficulty, point, teacher_id, 
+    choice_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from judgments
+    where judgment_id = #{judgment_id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    judgment_id,judgment_content,
+      judgment_answer,judgment_difficulty,point,
+      t.teacher_name, choice_time
+    from judgments jud left join teachers t on jud.teacher_id=t.teacher_id
+    <where>
+      <if test="point!=null">
+        and point=#{point}
+      </if>
+    </where>
+     LIMIT #{before},#{after}
+  </select>
+  <select id="count" resultType="int">
+        select count(*) from judgments jud left join teachers t on jud.teacher_id=t.teacher_id
+    <where>
+      <if test="point!=null">
+        and point=#{point}
+      </if>
+    </where>
+  </select>
+  <select id="selectByPoint" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from judgments
+    where point in
+    <foreach item="item" index="index" collection="_parameter.split('，')"  open="(" separator="," close=")">
+      '${item}'
+    </foreach>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from judgments
+    where judgment_id = #{judgment_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.test.entity.Judgments" >
+    insert into judgments (judgment_id, judgment_content, judgment_answer, 
+      judgment_difficulty, point, teacher_id, 
+      choice_time)
+    values (#{judgment_id,jdbcType=INTEGER}, #{judgment_content,jdbcType=VARCHAR}, #{judgment_answer,jdbcType=VARCHAR}, 
+      #{judgment_difficulty,jdbcType=DOUBLE}, #{point,jdbcType=VARCHAR}, #{teacher_id,jdbcType=VARCHAR}, 
+      #{choice_time,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.test.entity.Judgments" >
+    insert into judgments
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="judgment_id != null" >
+        judgment_id,
+      </if>
+      <if test="judgment_content != null" >
+        judgment_content,
+      </if>
+      <if test="judgment_answer != null" >
+        judgment_answer,
+      </if>
+      <if test="judgment_difficulty != null" >
+        judgment_difficulty,
+      </if>
+      <if test="point != null" >
+        point,
+      </if>
+      <if test="teacher_id != null" >
+        teacher_id,
+      </if>
+      <if test="choice_time != null" >
+        choice_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="judgment_id != null" >
+        #{judgment_id,jdbcType=INTEGER},
+      </if>
+      <if test="judgment_content != null" >
+        #{judgment_content,jdbcType=VARCHAR},
+      </if>
+      <if test="judgment_answer != null" >
+        #{judgment_answer,jdbcType=VARCHAR},
+      </if>
+      <if test="judgment_difficulty != null" >
+        #{judgment_difficulty,jdbcType=DOUBLE},
+      </if>
+      <if test="point != null" >
+        #{point,jdbcType=VARCHAR},
+      </if>
+      <if test="teacher_id != null" >
+        #{teacher_id,jdbcType=VARCHAR},
+      </if>
+      <if test="choice_time != null" >
+        #{choice_time,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.test.entity.Judgments" >
+    update judgments
+    <set >
+      <if test="judgment_content != null" >
+        judgment_content = #{judgment_content,jdbcType=VARCHAR},
+      </if>
+      <if test="judgment_answer != null" >
+        judgment_answer = #{judgment_answer,jdbcType=VARCHAR},
+      </if>
+      <if test="judgment_difficulty != null" >
+        judgment_difficulty = #{judgment_difficulty,jdbcType=DOUBLE},
+      </if>
+      <if test="point != null" >
+        point = #{point,jdbcType=VARCHAR},
+      </if>
+      <if test="teacher_id != null" >
+        teacher_id = #{teacher_id,jdbcType=VARCHAR},
+      </if>
+      <if test="choice_time != null" >
+        choice_time = #{choice_time,jdbcType=DATE},
+      </if>
+    </set>
+    where judgment_id = #{judgment_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.test.entity.Judgments" >
+    update judgments
+    set judgment_content = #{judgment_content,jdbcType=VARCHAR},
+      judgment_answer = #{judgment_answer,jdbcType=VARCHAR},
+      judgment_difficulty = #{judgment_difficulty,jdbcType=DOUBLE},
+      point = #{point,jdbcType=VARCHAR},
+      teacher_id = #{teacher_id,jdbcType=VARCHAR},
+      choice_time = #{choice_time,jdbcType=DATE}
+    where judgment_id = #{judgment_id,jdbcType=INTEGER}
+  </update>
+</mapper>

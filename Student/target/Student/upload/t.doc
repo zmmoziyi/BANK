@@ -1,0 +1,43 @@
+Mime-Version: 1.0
+Content-Base: http://localhost:8080/Teacher.html
+Content-Type: Multipart/related; boundary="NEXT.ITEM-BOUNDARY";type="text/html"
+
+--NEXT.ITEM-BOUNDARY
+Content-Type: text/html; charset="utf-8"
+Content-Location: http://localhost:8080/Teacher.html
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style>
+
+</style>
+</head>
+<body>
+
+    <ul id="paper1_list">
+
+    <span style=" font-size:25px"> 选择题</span><li style=" font-size:20px"> 1.计算机感染特洛伊木马后的典型现象是（）。<br>A.程序异常退出<br>B.有未知程序试图建立网络连接<br>C.邮箱被垃圾邮件填满<br>D.Windows黑屏</li><li style=" font-size:20px"> 2.下列不属于网络攻击的是（）<br>A.连续不停的Ping某台主机<br>B.发送带病毒和木马的电子邮件<br>C.向多个邮箱发送同一封电子邮电<br>D.暴力破解服务器密码</li><li style=" font-size:20px"> 3.在进行域名解析过程中，由（）获取的解析结果耗时最短。<br>A.主域名服务器<br>B.辅域名服务器<br>C.本地缓存<br>D.转发域名服务器</li><li style=" font-size:20px"> 4.计算机网络是计算机技术和__________相结合的产物。<br>A.网络技术<br>B.通信技术<br>C. 人工智能技术<br>D.管理技术</li><li style=" font-size:20px"> 5.以下属于物理层的设备是（）<br>A.中继器<br>B.以太网交换机<br>C.桥<br>D.网关</li><li style=" font-size:20px"> 6.10BASE-T是指 （）<br>A.粗同轴电缆<br>B.细同轴电缆<br>C.双绞线<br>D.光纤</li></ul>
+
+    <ul id="paper2_list">
+
+    <span style=" font-size:25px">填空题</span><li style=" font-size:20px"> 1.计算机网络中常用的三种有线媒体是</li><li style=" font-size:20px"> 2.串行数据通信的方向性结构有三种（）、（）、（）。</li><li style=" font-size:20px"> 3.在局域网中，MAC指的是（）</li><li style=" font-size:20px"> 4.计算机通信子网技术发展的顺序是（ ）</li><li style=" font-size:20px"> 5.世界上很多国家都相继组建了自己国家的公用数据网，现有的公用数据网大多采用（ ）</li></ul>
+
+    <ul id="paper3_list">
+
+    <span style=" font-size:25px">判断题</span></ul>
+
+    <ul id="paper4_list">
+
+    <span style=" font-size:25px">名词解释题</span><li style=" font-size:20px"> 1.码元</li><li style=" font-size:20px"> 2.单工通信</li><li style=" font-size:20px"> 3.半双工通信</li><li style=" font-size:20px"> 4.全双工通信</li><li style=" font-size:20px"> 5.带通信号</li></ul>
+    <ul id="paper5_list">
+
+    <span style=" font-size:25px">简答题</span><li style=" font-size:20px"> 1.因特网的发展大致分为哪几个阶段？请指出这几个阶段的主要特点。</li><li style=" font-size:20px"> 2.简述因特网标准制定的几个阶段？</li><li style=" font-size:20px"> 3.计算机网络都有哪些类别？各种类别的网络都有哪些特点？</li></ul>
+    <ul id="paper6_list">
+
+    <span style=" font-size:25px">论述题</span><li style=" font-size:20px"> 1.帧中继的基本工作原理。</li></ul>
+
+
+</body></html>
+--NEXT.ITEM-BOUNDARY--

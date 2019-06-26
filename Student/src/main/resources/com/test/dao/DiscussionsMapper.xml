@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.test.dao.DiscussionsMapper" >
+  <resultMap id="BaseResultMap" type="com.test.entity.Discussions" >
+    <id column="discussion_id" property="discussion_id" jdbcType="INTEGER" />
+    <result column="discussion_content" property="discussion_content" jdbcType="VARCHAR" />
+    <result column="discussion_answer" property="discussion_answer" jdbcType="VARCHAR" />
+    <result column="discussion_difficulty" property="discussion_difficulty" jdbcType="DOUBLE" />
+    <result column="point" property="point" jdbcType="VARCHAR" />
+    <result column="teacher_id" property="teacher_id" jdbcType="VARCHAR" />
+    <result column="discussion_time" property="discussion_time" jdbcType="DATE" />
+    <association property="teachers" column="teacher_id"  resultMap="Teacher"/>
+  </resultMap>
+  <resultMap id="Teacher" type="com.test.entity.Teachers" >
+    <id column="teacher_name" property="teacher_name" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    discussion_id, discussion_content, discussion_answer, discussion_difficulty, point, 
+    teacher_id, discussion_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from discussions
+    where discussion_id = #{discussion_id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    discussion_id,discussion_content,
+      discussion_content,discussion_answer,discussion_difficulty,point,
+      t.teacher_name, discussion_time
+    from discussions dis left join teachers t on dis.teacher_id=t.teacher_id
+    <where>
+      <if test="point!=null">
+        and point=#{point}
+      </if>
+    </where>
+     LIMIT #{before},#{after}
+  </select>
+  <select id="count" resultType="int">
+        select count(*) from discussions dis left join teachers t on dis.teacher_id=t.teacher_id
+    <where>
+      <if test="point!=null">
+        and point=#{point}
+      </if>
+    </where>
+  </select>
+  <select id="selectByPoint" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from discussions
+    where point in
+    <foreach item="item" index="index" collection="_parameter.split('，')"  open="(" separator="," close=")">
+      '${item}'
+    </foreach>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from discussions
+    where discussion_id = #{discussion_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.test.entity.Discussions" >
+    insert into discussions (discussion_id, discussion_content, 
+      discussion_answer, discussion_difficulty, 
+      point, teacher_id, discussion_time
+      )
+    values (#{discussion_id,jdbcType=INTEGER}, #{discussion_content,jdbcType=VARCHAR}, 
+      #{discussion_answer,jdbcType=VARCHAR}, #{discussion_difficulty,jdbcType=DOUBLE}, 
+      #{point,jdbcType=VARCHAR}, #{teacher_id,jdbcType=VARCHAR}, #{discussion_time,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.test.entity.Discussions" >
+    insert into discussions
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="discussion_id != null" >
+        discussion_id,
+      </if>
+      <if test="discussion_content != null" >
+        discussion_content,
+      </if>
+      <if test="discussion_answer != null" >
+        discussion_answer,
+      </if>
+      <if test="discussion_difficulty != null" >
+        discussion_difficulty,
+      </if>
+      <if test="point != null" >
+        point,
+      </if>
+      <if test="teacher_id != null" >
+        teacher_id,
+      </if>
+      <if test="discussion_time != null" >
+        discussion_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="discussion_id != null" >
+        #{discussion_id,jdbcType=INTEGER},
+      </if>
+      <if test="discussion_content != null" >
+        #{discussion_content,jdbcType=VARCHAR},
+      </if>
+      <if test="discussion_answer != null" >
+        #{discussion_answer,jdbcType=VARCHAR},
+      </if>
+      <if test="discussion_difficulty != null" >
+        #{discussion_difficulty,jdbcType=DOUBLE},
+      </if>
+      <if test="point != null" >
+        #{point,jdbcType=VARCHAR},
+      </if>
+      <if test="teacher_id != null" >
+        #{teacher_id,jdbcType=VARCHAR},
+      </if>
+      <if test="discussion_time != null" >
+        #{discussion_time,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.test.entity.Discussions" >
+    update discussions
+    <set >
+      <if test="discussion_content != null" >
+        discussion_content = #{discussion_content,jdbcType=VARCHAR},
+      </if>
+      <if test="discussion_answer != null" >
+        discussion_answer = #{discussion_answer,jdbcType=VARCHAR},
+      </if>
+      <if test="discussion_difficulty != null" >
+        discussion_difficulty = #{discussion_difficulty,jdbcType=DOUBLE},
+      </if>
+      <if test="point != null" >
+        point = #{point,jdbcType=VARCHAR},
+      </if>
+      <if test="teacher_id != null" >
+        teacher_id = #{teacher_id,jdbcType=VARCHAR},
+      </if>
+      <if test="discussion_time != null" >
+        discussion_time = #{discussion_time,jdbcType=DATE},
+      </if>
+    </set>
+    where discussion_id = #{discussion_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.test.entity.Discussions" >
+    update discussions
+    set discussion_content = #{discussion_content,jdbcType=VARCHAR},
+      discussion_answer = #{discussion_answer,jdbcType=VARCHAR},
+      discussion_difficulty = #{discussion_difficulty,jdbcType=DOUBLE},
+      point = #{point,jdbcType=VARCHAR},
+      teacher_id = #{teacher_id,jdbcType=VARCHAR},
+      discussion_time = #{discussion_time,jdbcType=DATE}
+    where discussion_id = #{discussion_id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.test.dao.ShortAnswerMapper" >
+  <resultMap id="BaseResultMap" type="com.test.entity.ShortAnswer" >
+    <id column="shortAnswer_id" property="shortAnswer_id" jdbcType="INTEGER" />
+    <result column="shortAnswer_content" property="shortAnswer_content" jdbcType="VARCHAR" />
+    <result column="shortAnswer_answer" property="shortAnswer_answer" jdbcType="VARCHAR" />
+    <result column="shortAnswer_difficulty" property="shortAnswer_difficulty" jdbcType="DOUBLE" />
+    <result column="point" property="point" jdbcType="VARCHAR" />
+    <result column="teacher_id" property="teacher_id" jdbcType="VARCHAR" />
+    <result column="choice_time" property="choice_time" jdbcType="DATE" />
+    <association property="teachers" column="teacher_id"  resultMap="Teacher"/>
+  </resultMap>
+  <resultMap id="Teacher" type="com.test.entity.Teachers" >
+    <id column="teacher_name" property="teacher_name" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    shortAnswer_id, shortAnswer_content, shortAnswer_answer, shortAnswer_difficulty, 
+    point, teacher_id, choice_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from shortanswer
+    where shortAnswer_id = #{shortAnswer_id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    shortAnswer_id,shortAnswer_content,
+      shortAnswer_answer,shortAnswer_difficulty,point,
+      t.teacher_name, choice_time
+    from shortanswer sho left join teachers t on sho.teacher_id=t.teacher_id
+    <where>
+      <if test="point!=null">
+        and point=#{point}
+      </if>
+    </where>
+     LIMIT #{before},#{after}
+  </select>
+  <select id="count" resultType="int">
+        select count(*) from shortanswer sho left join teachers t on sho.teacher_id=t.teacher_id
+    <where>
+      <if test="point!=null">
+        and point=#{point}
+      </if>
+    </where>
+  </select>
+  <select id="selectByPoint" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from shortanswer
+    where point in
+    <foreach item="item" index="index" collection="_parameter.split('，')"  open="(" separator="," close=")">
+    '${item}'
+  </foreach>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from shortanswer
+    where shortAnswer_id = #{shortAnswer_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.test.entity.ShortAnswer" >
+    insert into shortanswer (shortAnswer_id, shortAnswer_content, 
+      shortAnswer_answer, shortAnswer_difficulty, 
+      point, teacher_id, choice_time
+      )
+    values (#{shortAnswer_id,jdbcType=INTEGER}, #{shortAnswer_content,jdbcType=VARCHAR}, 
+      #{shortAnswer_answer,jdbcType=VARCHAR}, #{shortAnswer_difficulty,jdbcType=DOUBLE}, 
+      #{point,jdbcType=VARCHAR}, #{teacher_id,jdbcType=VARCHAR}, #{choice_time,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.test.entity.ShortAnswer" >
+    insert into shortanswer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="shortAnswer_id != null" >
+        shortAnswer_id,
+      </if>
+      <if test="shortAnswer_content != null" >
+        shortAnswer_content,
+      </if>
+      <if test="shortAnswer_answer != null" >
+        shortAnswer_answer,
+      </if>
+      <if test="shortAnswer_difficulty != null" >
+        shortAnswer_difficulty,
+      </if>
+      <if test="point != null" >
+        point,
+      </if>
+      <if test="teacher_id != null" >
+        teacher_id,
+      </if>
+      <if test="choice_time != null" >
+        choice_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="shortAnswer_id != null" >
+        #{shortAnswer_id,jdbcType=INTEGER},
+      </if>
+      <if test="shortAnswer_content != null" >
+        #{shortAnswer_content,jdbcType=VARCHAR},
+      </if>
+      <if test="shortAnswer_answer != null" >
+        #{shortAnswer_answer,jdbcType=VARCHAR},
+      </if>
+      <if test="shortAnswer_difficulty != null" >
+        #{shortAnswer_difficulty,jdbcType=DOUBLE},
+      </if>
+      <if test="point != null" >
+        #{point,jdbcType=VARCHAR},
+      </if>
+      <if test="teacher_id != null" >
+        #{teacher_id,jdbcType=VARCHAR},
+      </if>
+      <if test="choice_time != null" >
+        #{choice_time,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.test.entity.ShortAnswer" >
+    update shortanswer
+    <set >
+      <if test="shortAnswer_content != null" >
+        shortAnswer_content = #{shortAnswer_content,jdbcType=VARCHAR},
+      </if>
+      <if test="shortAnswer_answer != null" >
+        shortAnswer_answer = #{shortAnswer_answer,jdbcType=VARCHAR},
+      </if>
+      <if test="shortAnswer_difficulty != null" >
+        shortAnswer_difficulty = #{shortAnswer_difficulty,jdbcType=DOUBLE},
+      </if>
+      <if test="point != null" >
+        point = #{point,jdbcType=VARCHAR},
+      </if>
+      <if test="teacher_id != null" >
+        teacher_id = #{teacher_id,jdbcType=VARCHAR},
+      </if>
+      <if test="choice_time != null" >
+        choice_time = #{choice_time,jdbcType=DATE},
+      </if>
+    </set>
+    where shortAnswer_id = #{shortAnswer_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.test.entity.ShortAnswer" >
+    update shortanswer
+    set shortAnswer_content = #{shortAnswer_content,jdbcType=VARCHAR},
+      shortAnswer_answer = #{shortAnswer_answer,jdbcType=VARCHAR},
+      shortAnswer_difficulty = #{shortAnswer_difficulty,jdbcType=DOUBLE},
+      point = #{point,jdbcType=VARCHAR},
+      teacher_id = #{teacher_id,jdbcType=VARCHAR},
+      choice_time = #{choice_time,jdbcType=DATE}
+    where shortAnswer_id = #{shortAnswer_id,jdbcType=INTEGER}
+  </update>
+</mapper>

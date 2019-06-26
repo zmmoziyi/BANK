@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>试卷生成</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <style>
+        #createType ul li{
+            display: inline-block;
+        }
+        .papaerstyle{
+            margin: 100px;
+        }
+        #choice-type ul li{
+            display: inline-block;
+        }
+        .choice-type{
+            margin: 50px;
+        }
+        #createType{
+            margin: 100px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="createType" class="layui-btn-container papaerstyle">
+    <ul >
+        <li>
+            <button id="manualBtn" class="layui-btn layui-btn-primary  layui-btn-lg">手动组卷</button>
+        </li>
+        <li>
+            <button id="automaticBtn"class="layui-btn layui-btn-primary  layui-btn-lg" style="text-align: right">自动组卷</button>
+        </li>
+    </ul>
+</div>
+<div id="createContent" class="papaerstyle">
+    <div id="manual" >
+
+        <div class="choice-type">
+            <div id="choice-type" class="layui-btn-container">
+                <ul >
+                    <li>
+                        <button id="choiceBtn" class="layui-btn layui-btn-primary  layui-btn-lg">选择</button>
+                    </li>
+                    <li>
+                        <button id="completionBtn"class="layui-btn layui-btn-primary  layui-btn-lg">填空</button>
+                    </li>
+                    <li>
+                        <button id="judgmentBtn" class="layui-btn layui-btn-primary  layui-btn-lg">判断</button>
+                    </li>
+                    <li>
+                        <button id="definitionBtn" class="layui-btn layui-btn-primary  layui-btn-lg">名词解释</button>
+                    </li>
+                    <li>
+                        <button id="shortAnswerBtn"  class="layui-btn layui-btn-primary  layui-btn-lg">简答</button>
+                    </li>
+                    <li>
+                        <button id="discussionBtn" class="layui-btn layui-btn-primary  layui-btn-lg">论述</button>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <ul id ="Showcontent"class="layui-layer-content">
+                    <li id="showchoice">
+                        <table class="layui-hide" id="choice" lay-filter="test1"></table>
+                        <script type="text/html" id="barDemo1">
+                            <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
+                        </script>
+                    </li>
+                    <li id="showcompletion">
+                        <table class="layui-hide" id="completion"lay-filter="test2" ></table>
+                        <script type="text/html" id="barDemo2">
+                            <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
+                        </script>
+                    </li>
+                    <li id="showjudgment">
+                        <table class="layui-hide" id="judgment" lay-filter="test3"></table>
+                        <script type="text/html" id="barDemo3">
+                            <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
+                        </script>
+                    </li>
+                    <li id="showdefinition">
+                        <table class="layui-hide" id="definition" lay-filter="test4"></table>
+                        <script type="text/html" id="barDemo4">
+                            <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
+                        </script>
+                    </li>
+                    <li id="showshort-answer">
+                        <table class="layui-hide" id="short-answer" lay-filter="test5"></table>
+                        <script type="text/html" id="barDemo5">
+                            <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
+                        </script>
+                    </li>
+                    <li id="showdiscussion">
+                        <table class="layui-hide" id="discussion" lay-filter="test6"></table>
+                        <script type="text/html" id="barDemo6">
+                            <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
+                        </script>
+                    </li>
+                </ul>
+                <button id="manualStart"class="layui-btn layui-btn-primary  layui-btn-lg" data-type="getCheckData" style="text-align: right">开始组卷</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="automatic"style="text-align: center">
+        <span>请您按照需求填写以下组卷规则</span>
+        <div class="rule" >
+
+            <div class="layui-form-item"style="display:inline-block">
+                <label class="layui-form-label">试卷总分</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" required  lay-verify="required" placeholder="请输入试卷总分" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item"style="display:inline-block">
+                <label class="layui-form-label">试卷期望难度系数</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" required  lay-verify="required" placeholder="请输入期望难度系数" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div >
+                <div class="layui-form-item" style="display:inline-block">
+                    <label class="layui-form-label">单选题个数</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" required  lay-verify="required" placeholder="请输入单选题个数" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item"style="display:inline-block" >
+                    <label class="layui-form-label">单选题分数</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" required  lay-verify="required" placeholder="请输入单选题分数" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="layui-form-item" style="display:inline-block">
+                    <label class="layui-form-label">填空题个数</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" required  lay-verify="required" placeholder="请输入填空题分数" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item" style="display:inline-block">
+                    <label class="layui-form-label">填空题分数</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" required  lay-verify="required" placeholder="请输入填空题个数" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+           <div>
+               <div class="layui-form-item"style="display:inline-block">
+                   <label class="layui-form-label">判断题个数</label>
+                   <div class="layui-input-block">
+                       <input type="text" name="title" required  lay-verify="required" placeholder="请输入判断题分数" autocomplete="off" class="layui-input">
+                   </div>
+               </div>
+               <div class="layui-form-item"style="display:inline-block">
+                   <label class="layui-form-label">判断题分数</label>
+                   <div class="layui-input-block">
+                       <input type="text" name="title" required  lay-verify="required" placeholder="请输入判断题个数" autocomplete="off" class="layui-input">
+                   </div>
+               </div>
+           </div>
+            <div>
+                <div class="layui-form-item" style="display:inline-block">
+                    <label class="layui-form-label">名词解释题个数</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" required  lay-verify="required" placeholder="请输入名词解释题分数" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item" style="display:inline-block">
+                    <label class="layui-form-label">名词解释题分数</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" required  lay-verify="required" placeholder="请输入名词解释题个数" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="layui-form-item" style="display:inline-block">
+                    <label class="layui-form-label">简答题个数</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" required  lay-verify="required" placeholder="请输入简答题分数" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item" style="display:inline-block">
+                    <label class="layui-form-label">简答题分数</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" required  lay-verify="required" placeholder="请输入简答题个数" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="layui-form-item"  style="display:inline-block">
+                    <label class="layui-form-label">论述题个数</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" required  lay-verify="required" placeholder="请输入论述题分数" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item"  style="display:inline-block">
+                    <label class="layui-form-label">论述题分数</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" required  lay-verify="required" placeholder="请输入论述题个数" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+            </div>
+            <div class="layui-form-item"style="display:inline-block" >
+                <label class="layui-form-label">考察知识点</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" required  lay-verify="required" placeholder="请输入考察知识点" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <span>如知识点为多个请用“，”连接</span>
+            <div>
+                <button id="automaticStart" class="layui-btn layui-btn-primary  layui-btn-lg">自动组卷</button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<div id="paperContent" class="papaerstyle">
+
+    <ul id="paper1_list">
+
+    </ul>
+
+    <ul id="paper2_list">
+
+    </ul>
+
+    <ul id="paper3_list">
+
+    </ul>
+
+    <ul id="paper4_list">
+
+    </ul>
+    <ul id="paper5_list">
+
+    </ul>
+    <ul id="paper6_list">
+
+    </ul>
+
+</div>
+<div id="answerContent" class="papaerstyle">
+
+    <ul id="paper7_list">
+
+    </ul>
+
+    <ul id="paper8_list">
+
+    </ul>
+
+    <ul id="paper9_list">
+
+    </ul>
+
+    <ul id="paper10_list">
+
+    </ul>
+    <ul id="paper11_list">
+
+    </ul>
+    <ul id="paper12_list">
+
+    </ul>
+
+</div>
+
+<div class="export" hidden="hidden">
+    <button id="export" class="layui-btn layui-btn-primary  layui-btn-lg" >导出为word</button>
+</div>
+<script src="js/jquery-2.1.4/jquery-2.1.4.js"></script>
+<script src="layui/layui.js"></script>
+<script src="layui/layui.all.js"></script>
+<script src="js/FileSavers.js"></script>
+<script src="js/jquery.wordexport.js"></script>
+
+<script>
+    //注意：选项卡 依赖 element 模块，否则无法进行功能性操作
+    layui.use('element', function(){
+        var element = layui.element;
+
+        //…
+    });
+    $(function () {
+        $("#manual").hide();
+        $("#automatic").hide();
+        layer.open({
+        title:false,
+        type: 1,
+//skin: 'layui-layer-rim', //加上边框
+        area: ['600px', '600px'], //宽高
+        content: '请仔细阅读以下内容'+'<br>本系统提供手动组卷与自动组卷两种方式'+'<br>手动组卷：您需要用于组卷的试题前面的多选框选中然后点击组卷，若您需要将其导出为word格式则需点击导出为wrod按钮'+'<br>自动组卷：您需要根据提示填写相应的组卷规则，点击自动组卷按钮系统开始组卷，若您需要将其导出为word格式则需点击导出为wrod按钮'
+    });
+
+    });
+    $("#manualBtn").click(function () {
+        $("#manual").show();
+        $("#automatic").hide();
+        $('#paperContent ul li').remove();
+        $('#paperContent ul span').remove();
+        $('#answerContent ul li').remove();
+        $('#answerContent ul span').remove();
+        $(function () {
+            layui.use('table', function(){//声明使用table
+                var table = layui.table;
+                table.render({
+                    elem: '#choice'
+                    //  ,data:result
+                    ,url:'/selectAllChoice'
+                    ,cellMinWidth: 50 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                    ,cols: [//表头
+                        [
+
+                            {type:'checkbox'}
+                            ,{field:'choice_id', width:80, title: '题号', sort: true}
+                            ,{field:'choice_content',edit: 'text', width:300, title: '题目'}
+                            ,{field:'choice_first',edit: 'text', width:80, title: '选项一'}
+                            ,{field:'choice_second',edit: 'text', width:80, title: '选项二'}
+                            ,{field:'choice_third',edit: 'text', title: '选项三', width:80} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                            ,{field:'choice_fourth', edit: 'text',width:80, title: '选项四'}
+                            ,{field:'choice_answer',edit: 'text',width:80, title: '答案'}
+                            ,{field:'choice_difficulty',edit: 'text',width:80, title: '难度'}
+                            ,{field:'point', width:80, title: '知识点'}
+                            ,{field:'teacher_name', width:120, title: '教师'}
+                            ,{field:'choice_time', width:137, title: '创建时间', sort: true}
+                            ,{fixed: 'right', width:300, title: '操作',align:'center', toolbar: '#barDemo1'}
+                        ]
+                    ]
+                    ,page:true
+                    ,limit:10
+
+                });
+                //监听单元格编辑
+                table.on('edit(test1)', function(obj){
+                    var value = obj.value //得到修改后的值
+                        ,data = obj.data //得到所在行所有键值
+                        ,field = obj.field; //得到字段
+
+                });
+                //监听行工具事件
+                table.on('tool(test1)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+                    var data = obj.data; //获得当前行数据
+                    var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+                    var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+                    if(layEvent === 'detail'){ //查看
+
+                        layer.open({
+                            title:"题目详情",
+                            type: 1,
+                            //skin: 'layui-layer-rim', //加上边框
+                            area: ['600px', '800px'], //宽高
+                            content: '<div style="font-size:25px">'+data.choice_id+'.'+data.choice_content+'<br>A.'+data.choice_first+'<br>B.'+data.choice_second+'<br>C.'+data.choice_third+'<br>D.'+data.choice_fourth+'<br>答案:'+data.choice_answer
+                                +'<br>考察知识点:'+data.point +'<br>出题人:'+data.teacher_name+'<br>创建时间:'+data.choice_time+'</div>'
+                        });
+                        //do somehing
+
+                    }
+                });
+
+
+
+            });
+        });
+    });
+
+    $("#choiceBtn").click(function () {
+        var i=  $(this).parent('li').index();
+        $("#Showcontent li").eq(i).show();
+        $("#Showcontent li").eq(i).siblings().hide();
+        layui.use('table', function(){//声明使用table
+            var table = layui.table;
+            table.render({
+                elem: '#choice'
+                //  ,data:result
+                ,url:'/selectAllChoice'
+                ,cellMinWidth: 50 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                ,cols: [//表头
+                    [
+
+                        {type:'checkbox'}
+                        ,{field:'choice_id', width:80, title: '题号', sort: true}
+                        ,{field:'choice_content',edit: 'text', width:300, title: '题目'}
+                        ,{field:'choice_first',edit: 'text', width:80, title: '选项一'}
+                        ,{field:'choice_second',edit: 'text', width:80, title: '选项二'}
+                        ,{field:'choice_third',edit: 'text', title: '选项三', width:80} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                        ,{field:'choice_fourth', edit: 'text',width:80, title: '选项四'}
+                        ,{field:'choice_answer',edit: 'text',width:80, title: '答案'}
+                        ,{field:'choice_difficulty',edit: 'text',width:80, title: '难度'}
+                        ,{field:'point', width:80, title: '知识点'}
+                        ,{field:'teacher_name', width:120, title: '教师'}
+                        ,{field:'choice_time', width:137, title: '创建时间', sort: true}
+                        ,{fixed: 'right', width:300, title: '操作',align:'center', toolbar: '#barDemo1'}
+                    ]
+                ]
+                ,page:true
+                ,limit:10
+
+            });
+            //监听单元格编辑
+            table.on('edit(test1)', function(obj){
+                var value = obj.value //得到修改后的值
+                    ,data = obj.data //得到所在行所有键值
+                    ,field = obj.field; //得到字段
+
+            });
+            //监听行工具事件
+            table.on('tool(test1)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+                var data = obj.data; //获得当前行数据
+                var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+                var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+                if(layEvent === 'detail'){ //查看
+
+                    layer.open({
+                        title:"题目详情",
+                        type: 1,
+                        //skin: 'layui-layer-rim', //加上边框
+                        area: ['600px', '800px'], //宽高
+                        content: '<div style="font-size:25px">'+data.choice_id+'.'+data.choice_content+'<br>A.'+data.choice_first+'<br>B.'+data.choice_second+'<br>C.'+data.choice_third+'<br>D.'+data.choice_fourth+'<br>答案:'+data.choice_answer
+                            +'<br>考察知识点:'+data.point +'<br>出题人:'+data.teacher_name+'<br>创建时间:'+data.choice_time+'</div>'
+                    });
+                    //do somehing
+
+                }
+            });
+
+
+
+        });
+    });
+    $("#completionBtn").click(function () {
+        layui.use('table', function(){//声明使用table
+            var table = layui.table;
+            $("#Showcontent li").eq(1).show();
+            $("#Showcontent li").eq(1).siblings().hide();
+            table.render({
+                elem: '#completion'
+                //  ,data:result
+                ,url:'/selectAllCompletion'
+                ,cellMinWidth: 50 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                ,cols: [//表头
+                    [
+
+                        {type:'checkbox'}
+                        ,{field:'completion_id', width:80, title: '题号', sort: true}
+                        ,{field:'completion_content',edit: 'text', width:300, title: '题目'}
+                        ,{field:'completion_answer',edit: 'text',width:300, title: '答案'}
+                        ,{field:'completion_difficulty',edit: 'text',width:80, title: '难度'}
+                        ,{field:'point', width:80, title: '知识点'}
+                        ,{field:'teacher_name', width:135, title: '教师'}
+                        ,{field:'choice_time', width:135, title: '创建时间', sort: true}
+                        ,{fixed: 'right', width:400, title: '操作',align:'center', toolbar: '#barDemo2'}
+                    ]
+                ]
+                ,page:true
+                ,limit:100
+            });
+            //监听单元格编辑
+            table.on('edit(test2)', function(obj){
+                var value = obj.value //得到修改后的值
+                    ,data = obj.data //得到所在行所有键值
+                    ,field = obj.field; //得到字段
+
+            });
+            //监听行工具事件
+            table.on('tool(test2)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+                var data = obj.data; //获得当前行数据
+                var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+                var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+                if(layEvent === 'detail'){ //查看
+
+                    layer.open({
+                        title:"题目详情",
+                        type: 1,
+                        //skin: 'layui-layer-rim', //加上边框
+                        area: ['600px', '800px'], //宽高
+                        content: '<div style="font-size:25px">'+data.completion_id+'.'+data.completion_content+'<br>答案:'+data.completion_answer
+                            +'<br>考察知识点:'+data.point +'<br>出题人:'+data.teacher_name+'<br>创建时间:'+data.choice_time+'</div>'
+                    });
+                    //do somehing
+
+
+                }
+            });
+
+        });
+    });
+    $("#judgmentBtn").click(function () {
+        layui.use('table', function(){//声明使用table
+            var table = layui.table;
+            $("#Showcontent li").eq(2).show();
+            $("#Showcontent li").eq(2).siblings().hide();
+            table.render({
+                elem: '#judgment'
+                //  ,data:result
+                ,url:'/selectAllJudgment'
+                ,cellMinWidth: 50 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                ,cols: [//表头
+                    [
+
+                        {type:'checkbox'}
+                        ,{field:'judgment_id', width:80, title: '题号', sort: true}
+                        ,{field:'judgment_content',edit: 'text', width:300, title: '题目'}
+                        ,{field:'judgment_answer',edit: 'text',width:300, title: '答案'}
+                        ,{field:'judgment_difficulty',edit: 'text',width:80, title: '难度'}
+                        ,{field:'point', width:80, title: '知识点'}
+                        ,{field:'teacher_name', width:135, title: '教师'}
+                        ,{field:'choice_time', width:135, title: '创建时间', sort: true}
+                        ,{fixed: 'right', width:400, title: '操作',align:'center', toolbar: '#barDemo3'}
+                    ]
+                ]
+                ,page:true
+                ,limit:100
+            });
+            //监听单元格编辑
+            table.on('edit(test3)', function(obj){
+                var value = obj.value //得到修改后的值
+                    ,data = obj.data //得到所在行所有键值
+                    ,field = obj.field; //得到字段
+
+            });
+            //监听行工具事件
+            table.on('tool(test3)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+                var data = obj.data; //获得当前行数据
+                var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+                var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+                if(layEvent === 'detail'){ //查看
+
+                    layer.open({
+                        title:"题目详情",
+                        type: 1,
+                        //skin: 'layui-layer-rim', //加上边框
+                        area: ['600px', '800px'], //宽高
+                        content: '<div style="font-size:25px">'+data.judgment_id+'.'+data.judgment_content+'<br>答案:'+data.judgment_answer
+                            +'<br>考察知识点:'+data.point +'<br>出题人:'+data.teacher_name+'<br>创建时间:'+data.choice_time+'</div>'
+                    });
+                    //do somehing
+
+                }
+            });
+
+        });
+    });
+    $("#definitionBtn").click(function () {
+        layui.use('table', function(){//声明使用table
+            var table = layui.table;
+            $("#Showcontent li").eq(3).show();
+            $("#Showcontent li").eq(3).siblings().hide();
+            table.render({
+                elem: '#definition'
+                //  ,data:result
+                ,url:'/selectAllDefinition'
+                ,cellMinWidth: 50 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                ,cols: [//表头
+                    [
+
+                        {type:'checkbox'}
+                        ,{field:'definition_id', width:80, title: '题号', sort: true}
+                        ,{field:'definition_content',edit: 'text', width:300, title: '题目'}
+                        ,{field:'definition_answer',edit: 'text',width:300, title: '答案'}
+                        ,{field:'definition_difficulty',edit: 'text',width:80, title: '难度'}
+                        ,{field:'point', width:80, title: '知识点'}
+                        ,{field:'teacher_name', width:135, title: '教师'}
+                        ,{field:'choice_time', width:135, title: '创建时间', sort: true}
+                        ,{fixed: 'right', width:400, title: '操作',align:'center', toolbar: '#barDemo4'}
+                    ]
+                ]
+                ,page:true
+                ,limit:100
+            });
+            //监听单元格编辑
+            table.on('edit(test4)', function(obj){
+                var value = obj.value //得到修改后的值
+                    ,data = obj.data //得到所在行所有键值
+                    ,field = obj.field; //得到字段
+
+            });
+            //监听行工具事件
+            table.on('tool(test4)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+                var data = obj.data; //获得当前行数据
+                var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+                var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+                if(layEvent === 'detail'){ //查看
+
+                    layer.open({
+                        title:"题目详情",
+                        type: 1,
+                        //skin: 'layui-layer-rim', //加上边框
+                        area: ['600px', '800px'], //宽高
+                        content: '<div style="font-size:25px">'+data.definition_id+'.'+data.definition_content+'<br>答案:'+data.definition_answer
+                            +'<br>考察知识点:'+data.point +'<br>出题人:'+data.teacher_name+'<br>创建时间:'+data.choice_time+'</div>'
+                    });
+                    //do somehing
+
+                }
+            });
+
+        });
+    });
+    $("#shortAnswerBtn").click(function () {
+        layui.use('table', function(){//声明使用table
+            var table = layui.table;
+            $("#Showcontent li").eq(4).show();
+            $("#Showcontent li").eq(4).siblings().hide();
+            table.render({
+                elem: '#short-answer'
+                //  ,data:result
+                ,url:'/selectAllShortAnswer'
+                ,cellMinWidth: 50 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                ,cols: [//表头
+                    [
+
+                        {type:'checkbox'}
+                        ,{field:'sa_id', width:80, title: '题号', sort: true}
+                        ,{field:'sa_content',edit: 'text', width:300, title: '题目'}
+                        ,{field:'sa_answer',edit: 'text',width:300, title: '答案'}
+                        ,{field:'sa_difficulty',edit: 'text',width:80, title: '难度'}
+                        ,{field:'point', width:80, title: '知识点'}
+                        ,{field:'teacher_name', width:135, title: '教师'}
+                        ,{field:'choice_time', width:135, title: '创建时间', sort: true}
+                        ,{fixed: 'right', width:400, title: '操作',align:'center', toolbar: '#barDemo5'}
+                    ]
+                ]
+                ,page:true
+                ,limit:100
+            });
+            //监听单元格编辑
+            table.on('edit(test5)', function(obj){
+                var value = obj.value //得到修改后的值
+                    ,data = obj.data //得到所在行所有键值
+                    ,field = obj.field; //得到字段
+
+            });
+            //监听行工具事件
+            table.on('tool(test5)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+                var data = obj.data; //获得当前行数据
+                var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+                var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+                if(layEvent === 'detail'){ //查看
+
+                    layer.open({
+                        title:"题目详情",
+                        type: 1,
+                        //skin: 'layui-layer-rim', //加上边框
+                        area: ['600px', '800px'], //宽高
+                        content: '<div style="font-size:25px">'+data.sa_id+'.'+data.sa_content+'<br>答案:'+data.sa_answer
+                            +'<br>考察知识点:'+data.point +'<br>出题人:'+data.teacher_name+'<br>创建时间:'+data.choice_time+'</div>'
+                    });
+                    //do somehing
+
+                } else if(layEvent === 'del'){ //删除
+                    layer.confirm('真的删除行么', function(index){
+                        obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                        layer.close(index);
+
+                        //向服务端发送删除指令
+                        $.ajax({
+                            url:"/deleteShortAnswer",
+                            type:"post",
+                            data:{shortAnswer_id:data.sa_id},
+                            dataType:"json",
+                            success:function (result) {
+                                if(result==1){
+                                    layer.open({
+                                        title: '提示'
+                                        ,content: '删除成功'
+                                    });
+                                }
+
+                            }
+                        })
+                    });
+                } else if(layEvent === 'edit'){ //编辑
+                    //do something
+                    $.ajax({
+                        url:"/updateShortAnswer",
+                        type:"post",
+                        data:{shortAnswer_id:data.sa_id,shortAnswer_content:data.sa_content,shortAnswer_answer:data.sa_answer},
+                        dataType:"json",
+                        success:function (result) {
+                            if(result==1){
+                                layer.open({
+                                    title: '提示'
+                                    ,content: '修改成功'
+                                });
+                            }
+
+                        }
+                    })
+                }
+            });
+
+        });
+    });
+    $("#discussionBtn").click(function () {
+        layui.use('table', function(){//声明使用table
+            var table = layui.table;
+            $("#Showcontent li").eq(5).show();
+            $("#Showcontent li").eq(5).siblings().hide();
+            table.render({
+                elem: '#discussion'
+                //  ,data:result
+                ,url:'/selectAllDiscussion'
+                ,cellMinWidth: 50 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                ,cols: [//表头
+                    [
+
+                        {type:'checkbox'}
+                        ,{field:'discussion_id', width:80, title: '题号', sort: true}
+                        ,{field:'discussion_content',edit: 'text', width:300, title: '题目'}
+                        ,{field:'discussion_answer',edit: 'text',width:300, title: '答案'}
+                        ,{field:'discussion_difficulty',edit: 'text',width:80, title: '难度'}
+                        ,{field:'point', width:80, title: '知识点'}
+                        ,{field:'teacher_name', width:135, title: '教师'}
+                        ,{field:'choice_time', width:135, title: '创建时间', sort: true}
+                        ,{fixed: 'right', width:400, title: '操作',align:'center', toolbar: '#barDemo6'}
+                    ]
+                ]
+                ,page:true
+                ,limit:100
+            });
+            //监听单元格编辑
+            table.on('edit(test6)', function(obj){
+                var value = obj.value //得到修改后的值
+                    ,data = obj.data //得到所在行所有键值
+                    ,field = obj.field; //得到字段
+
+            });
+            //监听行工具事件
+            table.on('tool(test6)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+                var data = obj.data; //获得当前行数据
+                var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+                var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+                if(layEvent === 'detail'){ //查
+                    alert(data.discussion_content);
+                    layer.open({
+                        title:"题目详情",
+                        type: 1,
+                        //skin: 'layui-layer-rim', //加上边框
+                        area: ['600px', '800px'], //宽高
+                        content: '<div style="font-size:25px">'+data.discussion_id+'.'+data.discussion_content+'<br>答案:'+data.discussion_answer
+                            +'<br>考察知识点:'+data.point +'<br>出题人:'+data.teacher_name+'<br>创建时间:'+data.choice_time+'</div>'
+                    });
+                    //do somehing
+
+                }
+            });
+
+        });
+    });
+    $("#manualStart").click(function () {
+
+        if($("#showchoice").is(":visible")){
+           // alert(JSON.stringify(layui.table.checkStatus('choice').data));    //如果元素为隐藏,则将它显现
+            var data=layui.table.checkStatus('choice').data;
+
+            $("#paper1_list ").append('<span style=" font-size:25px"> 选择题</span>');
+           for(var i=0;i<data.length;i++ ){
+               j=i+1;
+               $("#paper1_list ").append('<li style=" font-size:20px"> '+j+'.'+data[i].choice_content+'<br>A.'+data[i].choice_first+'<br>B.'+data[i].choice_second+'<br>C.'+data[i].choice_third+'<br>D.'+data[i].choice_fourth+'</li>')
+           }
+            $("#paper7_list ").append('<span style=" font-size:30px"> 答案</span>');
+            $("#paper7_list ").append('<span style=" font-size:25px"> 选择题</span>');
+            for(var i=0;i<data.length;i++ ){
+                j=i+1;
+                $("#paper7_list ").append('<li style=" font-size:20px"> '+j+'.'+data[i].choice_answer+'</li>')
+            }
+
+        }else if($("#showcompletion").is(":visible")){
+            var data=layui.table.checkStatus('completion').data;
+            $("#paper2_list ").append('<span style=" font-size:25px">填空题</span>');//如果元素为显现,则将其隐藏
+            for(var i=0;i<data.length;i++ ){
+                j=i+1;
+                $("#paper2_list ").append('<li style=" font-size:20px"> '+j+'.'+data[i].completion_content+'</li>')
+
+            }
+            $("#paper8_list ").append('<span style=" font-size:25px"> 填空题</span>');
+            for(var i=0;i<data.length;i++ ){
+                j=i+1;
+                $("#paper8_list ").append('<li style=" font-size:20px"> '+j+'.'+data[i].completion_answer+'</li>')
+            }
+        } else if($("#showjudgment").is(":visible")){
+            var data=layui.table.checkStatus('judgment').data;
+            $("#paper3_list ").append('<span style=" font-size:25px">判断题</span>');//如果元素为显现,则将其隐藏
+            for(var i=0;i<data.length;i++ ){
+                j=i+1;
+                $("#paper3_list ").append('<li style=" font-size:20px"> '+j+'.'+data[i].judgment_content+'</li>')
+            }
+            $("#paper9_list ").append('<span style=" font-size:25px"> 判断题</span>');
+            for(var i=0;i<data.length;i++ ){
+                j=i+1;
+                $("#paper9_list ").append('<li style=" font-size:20px"> '+j+'.'+data[i].judgment_answer+'</li>')
+            }
+        }else if($("#showdefinition").is(":visible")){
+            var data=layui.table.checkStatus('definition').data;
+            $("#paper4_list ").append('<span style=" font-size:25px">名词解释题</span>');//如果元素为显现,则将其隐藏
+            for(var i=0;i<data.length;i++ ){
+                j=i+1;
+                $("#paper4_list ").append('<li style=" font-size:20px"> '+j+'.'+data[i].definition_content+'</li>')
+            }
+            $("#paper10_list ").append('<span style=" font-size:25px"> 名词解释题</span>');
+            for(var i=0;i<data.length;i++ ){
+                j=i+1;
+                $("#paper10_list ").append('<li style=" font-size:20px"> '+j+'.'+data[i].definition_answer+'</li>')
+            }
+        }else if($("#showshort-answer").is(":visible")){
+            var data=layui.table.checkStatus('short-answer').data;
+            $("#paper5_list ").append('<span style=" font-size:25px">简单题</span>');//如果元素为显现,则将其隐藏
+            for(var i=0;i<data.length;i++ ){
+                j=i+1;
+                $("#paper5_list ").append('<li style=" font-size:20px"> '+j+'.'+data[i].shortAnswer_content+'</li>')
+            }
+            $("#paper11_list ").append('<span style=" font-size:25px"> 简答题</span>');
+            for(var i=0;i<data.length;i++ ){
+                j=i+1;
+                $("#paper11_list ").append('<li style=" font-size:20px"> '+j+'.'+data[i].definition_answer+'</li>')
+            }
+        }else if($("#showdiscussion").is(":visible")){
+            var data=layui.table.checkStatus('discussion').data;
+            $("#paper6_list ").append('<span style=" font-size:25px">论述题</span>');//如果元素为显现,则将其隐藏
+            for(var i=0;i<data.length;i++ ){
+                j=i+1;
+                $("#paper6_list ").append('<li style=" font-size:20px"> '+j+'.'+data[i].discussion_content+'</li>')
+            }
+            $("#paper12_list ").append('<span style=" font-size:25px"> 论述题</span>');
+            for(var i=0;i<data.length;i++ ){
+                j=i+1;
+                $("#paper12_list ").append('<li style=" font-size:20px"> '+j+'.'+data[i].discussion_answer+'</li>')
+            }
+        }
+        $(".export").show();
+        $("#export").click(function () {
+            $("#paperContent ").wordExport();
+            $("#answerContent ").wordExport();
+
+        });
+
+
+
+    });
+
+    $("#automaticStart").click(function () {
+
+
+        var totalMark =  $("#automatic input").eq(0).val();
+        var difficulty =  $("#automatic input").eq(1).val();
+        var choiceNum =  $("#automatic input").eq(2).val();
+        var choiceScore =  $("#automatic input").eq(3).val();
+        var completionsNum =  $("#automatic input").eq(4).val();
+        var completionsScore =  $("#automatic input").eq(5).val();
+        var judgmentsNum =  $("#automatic input").eq(6).val();
+        var judgmentsScore =  $("#automatic input").eq(7).val();
+        var definitionsNum=  $("#automatic input").eq(8).val();
+        var definitionsScore=  $("#automatic input").eq(9).val();
+
+        var shortAnswerNum=  $("#automatic input").eq(10).val();
+        var shortAnswerScore =  $("#automatic input").eq(11).val();
+        var discussionsNum=  $("#automatic input").eq(12).val();
+        var discussionsScore=  $("#automatic input").eq(13).val();
+        var  point =  $("#automatic input").eq(14).val();
+        /*$.ajax({
+            type: "post",
+            url:  "/creatPaper",
+            data:{choiceNum:choiceNum,choiceScore:choiceScore,completionsNum:completionsNum,completionsScore:completionsScore,
+                judgmentsNum:judgmentsNum,judgmentsScore:judgmentsScore,definitionsNum:definitionsNum,definitionsScore:definitionsScore,
+                shortAnswerNum:shortAnswerNum,shortAnswerScore:shortAnswerScore,discussionsNum:discussionsNum,discussionsScore:discussionsScore},
+            success: function(data) {
+                if(data==1){
+                    layer.open({
+                        title: '提示'
+                        ,content: '组卷成功'
+                    });
+                }
+            }
+        });*/
+        $.ajax({
+            type: "post",
+            url:  "/ChoicePaper",
+            data:{point:point},
+            success: function(data) {
+
+                $("#paper1_list").append('<span style=" font-size:25px"> 选择题(每题'+choiceScore+'分)</span>');
+                $("#paper7_list").append('<span style=" font-size:30px"> 答案</span>');
+                $("#paper7_list").append('<span style=" font-size:25px"> 选择题(每题'+choiceScore+'分)</span>');
+                for(var i=0;i<choiceNum;i++ ){
+                    j=i+1;
+                  //i=n+parseInt(10*Math.random());
+
+                    $("#paper1_list ").append('<li style=" font-size:20px"> '+j+'.'+data[i].choice_content+'<br>A.'+data[i].choice_first+'<br>B.'+data[i].choice_second+'<br>C.'+data[i].choice_third+'<br>D.'+data[i].choice_fourth+'</li>');
+                    $("#paper7_list ").append('<li style=" font-size:20px"> '+j+'.'+data[i].choice_answer+'</li>')
+                }
+            }
+        });
+        $.ajax({
+            type: "post",
+            url:  "/CompletionPaper",
+            data:{point:point},
+
+            success: function(data) {
+                $("#paper2_list ").append('<span style=" font-size:25px">填空题(每题'+completionsScore+'分)</span>');
+                $("#paper8_list ").append('<span style=" font-size:25px">填空题(每题'+completionsScore+'分)</span>')
+                for(var i=0;i<completionsNum;i++ ){
+                    j=i+1;
+                   // i=n+parseInt(10*Math.random());
+                    $("#paper2_list ").append('<li style=" font-size:20px"> '+j+'.'+data[i].completion_content+'</li>')
+                    $("#paper8_list ").append('<li style=" font-size:20px"> '+j+'.'+data[i].completion_answer+'</li>')
+                }
+            }
+        });
+        $.ajax({
+            type: "post",
+            url:  "/JudgmentPaper",
+            data:{point:point},
+            success: function(data) {
+                $("#paper3_list ").append('<span style=" font-size:25px">判断题(每题'+judgmentsScore+'分)</span>');
+                $("#paper9_list ").append('<span style=" font-size:25px">判断题(每题'+judgmentsScore+'分)</span>')
+                for(var i=0;i<judgmentsNum;i++ ){
+                    j=i+1;
+                  //  i=n+parseInt(10*Math.random());
+                    //i=i+parseInt(10*Math.random())
+                    $("#paper3_list ").append('<li style=" font-size:20px"> '+j+'.'+data[i].judgment_content+'</li>')
+                    $("#paper9_list ").append('<li style=" font-size:20px"> '+j+'.'+data[i].judgment_answer+'</li>')
+                }
+            }
+        });
+        $.ajax({
+            type: "post",
+            url:  "/DefinitionPaper",
+            data:{point:point},
+            success: function(data) {
+                $("#paper4_list ").append('<span style=" font-size:25px">名词解释题(每题'+definitionsScore+'分)</span>');
+                $("#paper10_list ").append('<span style=" font-size:25px">名词解释题(每题'+definitionsScore+'分)</span>')
+                for(var i=0;i<definitionsNum;i++ ){
+                    j=i+1;
+                    //i=n+parseInt(4*Math.random());
+                    $("#paper4_list ").append('<li style=" font-size:20px"> '+j+'.'+data[i].definition_content+'</li>')
+                    $("#paper10_list ").append('<li style=" font-size:20px"> '+j+'.'+data[i].definition_answer+'</li>')
+                }
+            }
+        });
+
+
+        $.ajax({
+            type: "post",
+            url:  "/ShortAnswerPaper",
+            data:{point:point},
+            success: function(data) {
+                $("#paper5_list ").append('<span style=" font-size:25px">简答题(每题'+shortAnswerScore+'分)</span>');
+                $("#paper11_list ").append('<span style=" font-size:25px">简答题(每题'+shortAnswerScore+'分)</span>')
+                for(var i=0;i<shortAnswerNum;i++ ){
+                    j=i+1;
+                    //i=parseInt(5*Math.random());
+                    $("#paper5_list ").append('<li style=" font-size:20px"> '+j+'.'+data[i].shortAnswer_content+'</li>')
+                    $("#paper11_list ").append('<li style=" font-size:20px"> '+j+'.'+data[i].shortAnswer_answer+'</li>')
+                }
+            }
+        });
+
+        $.ajax({
+            type: "post",
+            url:  "/DiscussionPaper",
+            data:{point:point},
+            success: function(data) {
+                $("#paper6_list ").append('<span style=" font-size:25px">论述题(每题'+discussionsScore+'分)</span>');
+                $("#paper12_list ").append('<span style=" font-size:25px">论述题(每题'+discussionsScore+'分)</span>')
+                for(var i=0;i<discussionsNum;i++ ){
+                    j=i+1;
+                   // i=parseInt(5*Math.random());
+                    $("#paper6_list ").append('<li style=" font-size:20px"> '+j+'.'+data[i].discussion_content+'</li>')
+                    $("#paper12_list ").append('<li style=" font-size:20px"> '+j+'.'+data[i].discussion_answer+'</li>')
+                }
+            }
+        });
+        $(".export").show();
+        $("#export").click(function () {
+            $("#paperContent ").wordExport();
+            $("#answerContent ").wordExport();
+        });
+
+
+
+    });
+    $("#automaticBtn").click(function () {
+        $("#manual").hide();
+        $("#automatic").show();
+        $('#paperContent ul li').remove();
+        $('#paperContent ul span').remove();
+        $('#answerContent ul li').remove();
+        $('#answerContent ul span').remove();
+
+
+
+
+   });
+</script>
+</body>
+</html>

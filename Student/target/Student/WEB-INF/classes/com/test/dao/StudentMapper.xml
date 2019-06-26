@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.test.dao.StudentMapper" >
+  <resultMap id="BaseResultMap" type="com.test.entity.Student" >
+    <id column="student_id" property="student_id" jdbcType="VARCHAR" />
+    <result column="student_name" property="student_name" jdbcType="VARCHAR" />
+    <result column="student_password" property="student_password" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    student_id, student_name, student_password
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from student
+    where student_id = #{student_id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from student  LIMIT #{before},#{after}
+  </select>
+  <select id="count" resultType="int">
+        select count(*) from student
+  </select>
+  <select id="login" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from student
+    where student_id = #{student_id,jdbcType=VARCHAR} and student_password = #{student_password,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from student
+    where student_id = #{student_id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.test.entity.Student" >
+    insert into student (student_id, student_name, student_password
+      )
+    values (#{student_id,jdbcType=VARCHAR}, #{student_name,jdbcType=VARCHAR}, #{student_password,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.test.entity.Student" >
+    insert into student
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="student_id != null" >
+        student_id,
+      </if>
+      <if test="student_name != null" >
+        student_name,
+      </if>
+      <if test="student_password != null" >
+        student_password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="student_id != null" >
+        #{student_id,jdbcType=VARCHAR},
+      </if>
+      <if test="student_name != null" >
+        #{student_name,jdbcType=VARCHAR},
+      </if>
+      <if test="student_password != null" >
+        #{student_password,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.test.entity.Student" >
+    update student
+    <set >
+      <if test="student_name != null" >
+        student_name = #{student_name,jdbcType=VARCHAR},
+      </if>
+      <if test="student_password != null" >
+        student_password = #{student_password,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where student_id = #{student_id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.test.entity.Student" >
+    update student
+    set student_name = #{student_name,jdbcType=VARCHAR},
+      student_password = #{student_password,jdbcType=VARCHAR}
+    where student_id = #{student_id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPassword" parameterType="com.test.entity.Student" >
+    update student
+    set
+      student_password = #{student_password,jdbcType=VARCHAR}
+    where student_id = #{student_id,jdbcType=VARCHAR}
+  </update>
+</mapper>

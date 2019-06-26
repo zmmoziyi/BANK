@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.test.dao.ChoicesMapper" >
+  <resultMap id="BaseResultMap" type="com.test.entity.Choices" >
+    <id column="choice_id" property="choice_id" jdbcType="INTEGER" />
+    <result column="choice_content" property="choice_content" jdbcType="VARCHAR" />
+    <result column="choice_first" property="choice_first" jdbcType="VARCHAR" />
+    <result column="choice_second" property="choice_second" jdbcType="VARCHAR" />
+    <result column="choice_third" property="choice_third" jdbcType="VARCHAR" />
+    <result column="choice_fourth" property="choice_fourth" jdbcType="VARCHAR" />
+    <result column="choice_answer" property="choice_answer" jdbcType="VARCHAR" />
+    <result column="choice_difficulty" property="choice_difficulty" jdbcType="DOUBLE" />
+    <result column="point" property="point" jdbcType="VARCHAR" />
+    <result column="teacher_id" property="teacher_id" jdbcType="VARCHAR" />
+    <result column="choice_time" property="choice_time" jdbcType="DATE" />
+    <association property="teachers" column="teacher_id"  resultMap="Teacher"/>
+  </resultMap>
+  <resultMap id="Teacher" type="com.test.entity.Teachers" >
+    <id column="teacher_name" property="teacher_name" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    choice_id, choice_content, choice_first, choice_second, choice_third, choice_fourth, 
+    choice_answer, choice_difficulty, point, teacher_id, choice_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from choices
+    where choice_id = #{choice_id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByDifficulty" resultMap="BaseResultMap" parameterType="java.lang.Double" >
+    select
+    <include refid="Base_Column_List" />
+    from choices
+    where choice_difficulty = #{choice_difficulty,jdbcType=DOUBLE}
+  </select>
+  <select id="selectByPoint" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from choices
+    where point in
+    <foreach item="item" index="index" collection="_parameter.split('，')"  open="(" separator="," close=")">
+    '${item}'
+    </foreach>
+  </select>
+  <select id="selectAllChoice" resultMap="BaseResultMap"  >
+    select
+    ch.choice_id, ch.choice_content, ch.choice_first,
+      ch.choice_second, ch.choice_third, ch.choice_fourth,
+      ch.choice_answer, ch.choice_difficulty,point,
+      t.teacher_name, ch.choice_time
+    from  choices ch left join teachers t on ch.teacher_id=t.teacher_id
+    <where>
+      <if test="point!=null">
+        and point=#{point}
+      </if>
+    </where>
+     LIMIT #{before},#{after}
+  </select>
+  <select id="count" resultType="int">
+        select count(*) from  choices ch left join teachers t on ch.teacher_id=t.teacher_id
+    <where>
+
+    <if test="point!=null">
+      and point=#{point}
+    </if>
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from choices
+    where choice_id = #{choice_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.test.entity.Choices" >
+    insert into choices (choice_id, choice_content, choice_first,
+      choice_second, choice_third, choice_fourth,
+      choice_answer, choice_difficulty
+      teacher_id, choice_time)
+    values (#{choice_id,jdbcType=INTEGER}, #{choice_content,jdbcType=VARCHAR}, #{choice_first,jdbcType=VARCHAR},
+      #{choice_second,jdbcType=VARCHAR}, #{choice_third,jdbcType=VARCHAR}, #{choice_fourth,jdbcType=VARCHAR},
+      #{choice_answer,jdbcType=VARCHAR}, #{choice_difficulty,jdbcType=DOUBLE},
+      #{teacher_id,jdbcType=VARCHAR}, #{choice_time,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.test.entity.Choices" >
+    insert into choices
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="choice_id != null" >
+        choice_id,
+      </if>
+      <if test="choice_content != null" >
+        choice_content,
+      </if>
+      <if test="choice_first != null" >
+        choice_first,
+      </if>
+      <if test="choice_second != null" >
+        choice_second,
+      </if>
+      <if test="choice_third != null" >
+        choice_third,
+      </if>
+      <if test="choice_fourth != null" >
+        choice_fourth,
+      </if>
+      <if test="choice_answer != null" >
+        choice_answer,
+      </if>
+      <if test="choice_difficulty != null" >
+        choice_difficulty,
+      </if>
+      <if test="point != null" >
+        point,
+      </if>
+      <if test="teacher_id != null" >
+        teacher_id,
+      </if>
+      <if test="choice_time != null" >
+        choice_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="choice_id != null" >
+        #{choice_id,jdbcType=INTEGER},
+      </if>
+      <if test="choice_content != null" >
+        #{choice_content,jdbcType=VARCHAR},
+      </if>
+      <if test="choice_first != null" >
+        #{choice_first,jdbcType=VARCHAR},
+      </if>
+      <if test="choice_second != null" >
+        #{choice_second,jdbcType=VARCHAR},
+      </if>
+      <if test="choice_third != null" >
+        #{choice_third,jdbcType=VARCHAR},
+      </if>
+      <if test="choice_fourth != null" >
+        #{choice_fourth,jdbcType=VARCHAR},
+      </if>
+      <if test="choice_answer != null" >
+        #{choice_answer,jdbcType=VARCHAR},
+      </if>
+      <if test="choice_difficulty != null" >
+        #{choice_difficulty,jdbcType=DOUBLE},
+      </if>
+      <if test="point != null" >
+        #{teacher_id,jdbcType=VARCHAR},
+      </if>
+      <if test="teacher_id != null" >
+        #{point,jdbcType=VARCHAR},
+      </if>
+      <if test="choice_time != null" >
+        #{choice_time,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.test.entity.Choices" >
+    update choices
+    <set >
+      <if test="choice_content != null" >
+        choice_content = #{choice_content,jdbcType=VARCHAR},
+      </if>
+      <if test="choice_first != null" >
+        choice_first = #{choice_first,jdbcType=VARCHAR},
+      </if>
+      <if test="choice_second != null" >
+        choice_second = #{choice_second,jdbcType=VARCHAR},
+      </if>
+      <if test="choice_third != null" >
+        choice_third = #{choice_third,jdbcType=VARCHAR},
+      </if>
+      <if test="choice_fourth != null" >
+        choice_fourth = #{choice_fourth,jdbcType=VARCHAR},
+      </if>
+      <if test="choice_answer != null" >
+        choice_answer = #{choice_answer,jdbcType=VARCHAR},
+      </if>
+      <if test="choice_difficulty != null" >
+        choice_difficulty = #{choice_difficulty,jdbcType=DOUBLE},
+      </if>
+      <if test="teacher_id != null" >
+        teacher_id = #{teacher_id,jdbcType=VARCHAR},
+      </if>
+      <if test="choice_time != null" >
+        choice_time = #{choice_time,jdbcType=DATE},
+      </if>
+    </set>
+    where choice_id = #{choice_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.test.entity.Choices" >
+    update choices
+    set choice_content = #{choice_content,jdbcType=VARCHAR},
+      choice_first = #{choice_first,jdbcType=VARCHAR},
+      choice_second = #{choice_second,jdbcType=VARCHAR},
+      choice_third = #{choice_third,jdbcType=VARCHAR},
+      choice_fourth = #{choice_fourth,jdbcType=VARCHAR},
+      choice_answer = #{choice_answer,jdbcType=VARCHAR},
+      choice_difficulty = #{choice_difficulty,jdbcType=VARCHAR},
+      teacher_id = #{teacher_id,jdbcType=VARCHAR},
+      choice_time = #{choice_time,jdbcType=DATE}
+    where choice_id = #{choice_id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.dao.PapersMapper">
+  <resultMap id="BaseResultMap" type="com.test.entity.Papers">
+    <id column="paper_id" jdbcType="INTEGER" property="paper_id" />
+    <result column="paper_date" jdbcType="DATE" property="paper_date" />
+    <result column="teacher_id" jdbcType="VARCHAR" property="teacher_id" />
+    <result column="difficulty" jdbcType="DOUBLE" property="difficulty" />
+    <result column="point" jdbcType="VARCHAR" property="point" />
+    <result column="paper_content" jdbcType="VARCHAR" property="paper_content" />
+    <association column="teacher_id" property="teachers" resultMap="Teacher" />
+  </resultMap>
+  <resultMap id="Teacher" type="com.test.entity.Teachers">
+    <id column="teacher_name" jdbcType="VARCHAR" property="teacher_name" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    paper_id, paper_date, teacher_id, difficulty, point, paper_content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from papers
+    where paper_id = #{paper_id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAllpaper" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    pa.paper_id ,pa.paper_date,
+      t.teacher_name, pa.difficulty,point,pa.paper_content
+    from papers pa, teachers t
+    where pa.teacher_id=t.teacher_id
+     LIMIT #{before},#{after}
+  </select>
+  <select id="count" resultType="int">
+        select count(*) from papers
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from papers
+    where paper_id = #{paper_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.test.entity.Papers">
+    insert into papers (paper_id, paper_date, teacher_id, 
+      difficulty, point, paper_content
+      )
+    values (#{paper_id,jdbcType=INTEGER}, #{paper_date,jdbcType=DATE}, #{teacher_id,jdbcType=VARCHAR}, 
+      #{difficulty,jdbcType=DOUBLE}, #{point,jdbcType=VARCHAR}, #{paper_content,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.test.entity.Papers">
+    insert into papers
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="paper_id != null">
+        paper_id,
+      </if>
+      <if test="paper_date != null">
+        paper_date,
+      </if>
+      <if test="teacher_id != null">
+        teacher_id,
+      </if>
+      <if test="difficulty != null">
+        difficulty,
+      </if>
+      <if test="point != null">
+        point,
+      </if>
+      <if test="paper_content != null">
+        paper_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="paper_id != null">
+        #{paper_id,jdbcType=INTEGER},
+      </if>
+      <if test="paper_date != null">
+        #{paper_date,jdbcType=DATE},
+      </if>
+      <if test="teacher_id != null">
+        #{teacher_id,jdbcType=VARCHAR},
+      </if>
+      <if test="difficulty != null">
+        #{difficulty,jdbcType=DOUBLE},
+      </if>
+      <if test="point != null">
+        #{point,jdbcType=VARCHAR},
+      </if>
+      <if test="paper_content != null">
+        #{paper_content,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.test.entity.Papers">
+    update papers
+    <set>
+      <if test="paper_date != null">
+        paper_date = #{paper_date,jdbcType=DATE},
+      </if>
+      <if test="teacher_id != null">
+        teacher_id = #{teacher_id,jdbcType=VARCHAR},
+      </if>
+      <if test="difficulty != null">
+        difficulty = #{difficulty,jdbcType=DOUBLE},
+      </if>
+      <if test="point != null">
+        point = #{point,jdbcType=VARCHAR},
+      </if>
+      <if test="paper_content != null">
+        paper_content = #{paper_content,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where paper_id = #{paper_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.test.entity.Papers">
+    update papers
+    set paper_date = #{paper_date,jdbcType=DATE},
+      teacher_id = #{teacher_id,jdbcType=VARCHAR},
+      difficulty = #{difficulty,jdbcType=DOUBLE},
+      point = #{point,jdbcType=VARCHAR},
+      paper_content = #{paper_content,jdbcType=VARCHAR}
+    where paper_id = #{paper_id,jdbcType=INTEGER}
+  </update>
+</mapper>
